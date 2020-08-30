@@ -12,10 +12,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 RUN \
     apt-get update && \
     apt-get install libldap2-dev -y && \
+    apt-get install libxml2-dev -y && \
     rm -rf /var/lib/apt/lists/* && \
     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap && \
-    docker-php-ext-install pdo_mysql
+    docker-php-ext-install pdo_mysql && \
+    docker-php-ext-install soap
 
 # install xdebug zend-extension
 RUN pecl install xdebug-2.9.6 && docker-php-ext-enable xdebug
